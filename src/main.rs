@@ -27,7 +27,7 @@ fn receiver() {
     let socket = UdpSocket::bind(LISTEN_ADDR).expect("Failed to bind socket");
     let mut buffer = vec![0; MAX_INCOMING_BEACON_SIZE];
     loop {
-        socket.recv_from(&mut buffer).expect("Failed to receive data");
+        socket.recv(&mut buffer).expect("Failed to receive data");
         let data = buffer
             .clone()
             .into_iter()
