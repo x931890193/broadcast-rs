@@ -17,7 +17,7 @@ fn sender() {
     let host_name = String::from_utf8(out_put.stdout).unwrap().strip_suffix("\n").expect("Failed to strip suffix for host_name").to_string();
     loop {
         let now = Local::now().format("%Y-%m-%d %H:%M:%S").to_string().to_owned();
-        let buf = Vec::from(format!("{{\"host\": \"{}\", \"time\": \"{}\", \"from\": \"rust\"}}", host_name, now));
+        let buf = Vec::from(format!("{\"{\"host\": \"{}\", \"time\": \"{}\", \"from\": \"rust\"}\"}", host_name, now));
         socket.send_to(buf.as_slice(), BROADCAST_ADDR).expect("Failed to send data");
         thread::sleep(std::time::Duration::from_secs(SEND_SLEEP_TIME));
     }
