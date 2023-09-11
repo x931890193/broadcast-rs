@@ -9,9 +9,10 @@ const LISTEN_ADDR: &str = "0.0.0.0:4000";
 const MAX_INCOMING_BEACON_SIZE: usize = 1024;
 const SEND_SLEEP_TIME: u64 = 3;
 
+
 fn get_temperature() -> String {
     let out_put = Command::new("cat").arg("/sys/class/thermal/thermal_zone0/temp").output().expect("Failed to execute command");
-    let temp = String::from_utf8(out_put.stdout).unwrap().to_string();
+    let temp =  String::from_utf8(out_put.stdout).unwrap().strip_suffix("\n").expect("Failed to strip suffix for temperature").to_string();
     let temp = temp.parse::<f64>().unwrap() / 1000.0;
     format!("{:.2}", temp)
 }
